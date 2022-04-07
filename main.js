@@ -1,5 +1,7 @@
 const { Client, Intents, Guild, GuildMember } = require('discord.js');
-const { token } = require('./config.json');
+const keepAlive = require("./server")
+
+require("dotenv").config()
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
@@ -11,14 +13,12 @@ client.on('messageCreate', (msg) => {
 
             const trollMsg = msg.content.split("-m")[1] || "get trolled nub lmao"
 
-            console.log(trollMsg)
-
             if (target) {
                 const member = client.users.cache.find(u => u.tag == target)
     
                 const currentUser = msg.author.tag
     
-                if (member) {
+                if (member && ! member.bot) {
                     const id = member.id
                     
                     const targetUser = client.users.cache.find(u => u.id == id)
@@ -38,5 +38,5 @@ client.on('messageCreate', (msg) => {
 client.once('ready', () => {
 	console.log('Ready!');
 });
-
-client.login(token);
+keepAlive()
+client.login(process.env.TOKEN);
