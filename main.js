@@ -16,6 +16,9 @@ client.on('messageCreate', (msg) => {
               
             const anonymous = msg.content.split("-a")[1] != null || false
                         
+
+
+
             if (target) {
                 const member = client.users.cache.find(u => u.tag == target)
     
@@ -40,7 +43,6 @@ client.once('ready', () => {
 	console.log('Ready!');
 });
 
-
 keepAlive()
-
 client.login(process.env.TOKEN);
+
